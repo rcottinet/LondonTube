@@ -2,14 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.net.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TubeApiClientTest
 {
-    final String API_BASE_URL = "https://api.tfl.gov.uk";
+    final String API_BASE_URL = "api.tfl.gov.uk";
     TubeApiClient clientWithFakeCredentials;
 
     @BeforeEach
@@ -20,7 +21,7 @@ class TubeApiClientTest
 
 
     @Test
-    void throwsOnEmptyApplicationId()
+    void throwOnEmptyApplicationId()
     {
         assertThrows(IllegalArgumentException.class, () ->
                              new TubeApiClient("", "Not empty"),
@@ -28,7 +29,7 @@ class TubeApiClientTest
     }
 
     @Test
-    void throwsOnEmptyApplicationKey()
+    void throwOnEmptyApplicationKey()
     {
         assertThrows(IllegalArgumentException.class, () ->
                              new TubeApiClient("Not empty", ""),
@@ -36,7 +37,7 @@ class TubeApiClientTest
     }
 
     @Test
-    void throwsOnEmptyApplicationIdAndEmptyApplicationKey()
+    void throwOnEmptyApplicationIdAndEmptyApplicationKey()
     {
         assertThrows(IllegalArgumentException.class, () ->
                              new TubeApiClient("", ""),
@@ -51,11 +52,47 @@ class TubeApiClientTest
     }
 
     @Test
-    void setNewBaseUrl()
+    void setNewBaseUrlWithoutProtocol()
+    {
+        String fakeBaseUrl = "a.b";
+        clientWithFakeCredentials.setApiBaseUrl(fakeBaseUrl);
+        String apiBaseUrl = clientWithFakeCredentials.getApiBaseUrl();
+        assertEquals(fakeBaseUrl, apiBaseUrl, "The base URL hasn't been changed");
+    }
+
+    @Test
+    void setNewBaseUrlWithHttpProtocol()
     {
         String fakeBaseUrl = "http://a.b";
         clientWithFakeCredentials.setApiBaseUrl(fakeBaseUrl);
         String apiBaseUrl = clientWithFakeCredentials.getApiBaseUrl();
-        assertEquals(fakeBaseUrl, apiBaseUrl, "The base URL hasn't been changed");
+        assertEquals("a.b", apiBaseUrl, "The base URL hasn't been changed or hasn't removed the 'http://' prefix");
+    }
+
+    @Test
+    void setNewBaseUrlWithHttpsProtocol()
+    {
+        String fakeBaseUrl = "https://a.b";
+        clientWithFakeCredentials.setApiBaseUrl(fakeBaseUrl);
+        String apiBaseUrl = clientWithFakeCredentials.getApiBaseUrl();
+        assertEquals("a.b", apiBaseUrl, "The base URL hasn't been changed or hasn't removed the 'https://' prefix");
+    }
+
+    @Test
+    void throwOnEmptyNewBaseUrl()
+    {
+        assertThrows(IllegalArgumentException.class, () ->
+                             clientWithFakeCredentials.setApiBaseUrl(""),
+                     "Client didn't thrown on empty base URL");
+    }
+
+    @Test
+    void generateUrlGivenItsParts()
+    {
+        assertDoesNotThrow(() -> {
+            URL url = new URL("https", "sub.host.tld", "/a/b/x?p=1");
+            String desiredUrl = "https://sub.host.tld/a/b/x?p=1";
+            assertEquals(desiredUrl, url.toString(), "Generated URL is not the desired one");
+        }, "URL constructor should not throw an exception");
     }
 }

@@ -2,16 +2,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import org.junit.jupiter.api.*;
-
+import java.io.*;
 import java.net.*;
+import java.nio.file.*;
+import java.util.*;
+
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TubeApiClientTest
 {
-    final String API_BASE_URL = "api.tfl.gov.uk";
-    TubeApiClient clientWithFakeCredentials;
+    private final String API_BASE_URL = "api.tfl.gov.uk";
+    private TubeApiClient clientWithFakeCredentials;
+    private static String appId;
+    private static String appKey;
+
 
     @BeforeEach
     void setUpClientWithFakeCredentials()
@@ -94,5 +100,24 @@ class TubeApiClientTest
             String desiredUrl = "https://sub.host.tld/a/b/x?p=1";
             assertEquals(desiredUrl, url.toString(), "Generated URL is not the desired one");
         }, "URL constructor should not throw an exception");
+    }
+
+    static boolean readPrivateApiKeysIfPresent()
+    {
+        try
+        {
+            File secretFile = Paths.get("secret.txt").toFile();
+            if (!secretFile.exists())
+                return false;
+
+            List<String> lines = Files.readAllLines(secretFile.toPath());
+            appId = lines.get(0);
+            appKey = lines.get(1);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 }

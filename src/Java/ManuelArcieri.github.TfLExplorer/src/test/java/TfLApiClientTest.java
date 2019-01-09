@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assumptions.*;
 
 class TfLApiClientTest
 {
-    private final String API_BASE_URL = "api.tfl.gov.uk";
-    private TfLApiClient clientWithFakeCredentials = null;
-    private TfLApiClient clientWithRealCredentials = null;
-    private static String appId = null;
-    private static String appKey = null;
+    protected final String API_BASE_URL = "api.tfl.gov.uk";
+    protected TfLApiClient clientWithFakeCredentials = null;
+    protected TfLApiClient clientWithRealCredentials = null;
+    protected static String appId = null;
+    protected static String appKey = null;
 
     @BeforeAll
     static void readPrivateApiKeysIfPresent()
@@ -43,7 +43,8 @@ class TfLApiClientTest
     void setUpClientWithFakeCredentials()
     {
         clientWithFakeCredentials = new TfLApiClient("FakeId", "FakeKey");
-        clientWithRealCredentials = new TfLApiClient(appId, appKey);
+        if (appId != null && appKey != null)
+            clientWithRealCredentials = new TfLApiClient(appId, appKey);
     }
 
 

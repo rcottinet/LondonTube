@@ -7,19 +7,21 @@ import java.net.*;
 import java.net.http.*;
 import java.time.Duration;
 
-public class TubeApiClient
+public class TfLApiClient
 {
+    private final String[] DEFAULT_HEADERS = { "User-Agent", "ManuelArcieri.github.TfLExplorer (Java)" };
+
     private String apiBaseUrl = "api.tfl.gov.uk";
     private String appId;
     private String appKey;
     private HttpClient client;
 
-    public TubeApiClient(String applicationId, String applicationKey)
+    public TfLApiClient(String applicationId, String applicationKey)
     {
         this(applicationId, applicationKey, 10L);
     }
 
-    public TubeApiClient(String applicationId, String applicationKey, long timeoutInSeconds)
+    public TfLApiClient(String applicationId, String applicationKey, long timeoutInSeconds)
     {
         if (applicationId.isEmpty() || applicationKey.isEmpty())
             throw new IllegalArgumentException("'applicationId' or 'applicationKey' is empty");
@@ -49,8 +51,6 @@ public class TubeApiClient
 
         apiBaseUrl = newBaseUrl;
     }
-
-    final String[] DEFAULT_HEADERS = { "Keep-Alive:", "timeout=5, max=1000" };
 
     public HttpResponse<String> sendRawRequest(String... apiPath) throws URISyntaxException, IOException, InterruptedException
     {

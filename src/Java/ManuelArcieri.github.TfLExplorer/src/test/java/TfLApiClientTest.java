@@ -4,25 +4,46 @@
 
 import java.io.*;
 import java.net.*;
+import java.net.http.*;
 import java.nio.file.*;
 import java.util.*;
 
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
 
-class TubeApiClientTest
+class TfLApiClientTest
 {
     private final String API_BASE_URL = "api.tfl.gov.uk";
-    private TubeApiClient clientWithFakeCredentials;
-    private static String appId;
-    private static String appKey;
+    private TfLApiClient clientWithFakeCredentials = null;
+    private TfLApiClient clientWithRealCredentials = null;
+    private static String appId = null;
+    private static String appKey = null;
 
+    @BeforeAll
+    static void readPrivateApiKeysIfPresent()
+    {
+        try
+        {
+            File secretFile = Paths.get("secret.txt").toFile();
+            if (!secretFile.exists())
+                return;
+
+            List<String> lines = Files.readAllLines(secretFile.toPath());
+            appId = lines.get(0);
+            appKey = lines.get(1);
+        }
+        catch (Exception ex)
+        {
+        }
+    }
 
     @BeforeEach
     void setUpClientWithFakeCredentials()
     {
-        clientWithFakeCredentials = new TubeApiClient("<<<Fake ID>>>", "<<<Fake Key>>>");
+        clientWithFakeCredentials = new TfLApiClient("FakeId", "FakeKey");
+        clientWithRealCredentials = new TfLApiClient(appId, appKey);
     }
 
 
@@ -30,7 +51,7 @@ class TubeApiClientTest
     void throwOnEmptyApplicationId()
     {
         assertThrows(IllegalArgumentException.class, () ->
-                             new TubeApiClient("", "Not empty"),
+                             new TfLApiClient("", "Not empty"),
                      "Constructor didn't thrown on empty 'applicationId'");
     }
 
@@ -38,7 +59,7 @@ class TubeApiClientTest
     void throwOnEmptyApplicationKey()
     {
         assertThrows(IllegalArgumentException.class, () ->
-                             new TubeApiClient("Not empty", ""),
+                             new TfLApiClient("Not empty", ""),
                      "Constructor didn't thrown on empty 'applicationKey'");
     }
 
@@ -46,7 +67,7 @@ class TubeApiClientTest
     void throwOnEmptyApplicationIdAndEmptyApplicationKey()
     {
         assertThrows(IllegalArgumentException.class, () ->
-                             new TubeApiClient("", ""),
+                             new TfLApiClient("", ""),
                      "Constructor didn't thrown on empty 'applicationId' and 'applicationKey'");
     }
 
@@ -102,22 +123,53 @@ class TubeApiClientTest
         }, "URL constructor should not throw an exception");
     }
 
-    static boolean readPrivateApiKeysIfPresent()
+    @Test
+    void setUpClientWithRealCredentials()
     {
+        assumeTrue(appId != null, "'appId' is not present");
+        assumeTrue(appKey != null, "'appKey' is not present");
+
+        assertDoesNotThrow(() -> new TfLApiClient(appId, appKey),
+                           "It must not throw with real credentials");
+    }
+
+    @Test
+    void sendingRawRequestToFakeApiPathShouldReturn404ErrorCode()
+    {
+        assumeTrue(appId != null, "'appId' is not present");
+        assumeTrue(appKey != null, "'appKey' is not present");
+
+        TfLApiClient client = clientWithRealCredentials;
+        HttpResponse<String> response = null;
         try
         {
-            File secretFile = Paths.get("secret.txt").toFile();
-            if (!secretFile.exists())
-                return false;
-
-            List<String> lines = Files.readAllLines(secretFile.toPath());
-            appId = lines.get(0);
-            appKey = lines.get(1);
-            return true;
+            response = client.sendRawRequest("fake", "path");
         }
         catch (Exception ex)
         {
-            return false;
+            fail("The client should not throw while sending a raw request", ex);
         }
+
+        assertEquals(404, response.statusCode(), "Sending a request to a fake API path should return a 404 error code");
+    }
+
+    @Test
+    void throwOnRequestToFakeWebsite()
+    {
+        TfLApiClient client = clientWithFakeCredentials;
+        client.setApiBaseUrl("fakeWebsite.mock");
+
+        assertThrows(ConnectException.class, () -> client.sendRawRequest("fakePath"),
+                     "Sending a request to a non-existing website should throw");
+    }
+
+    @Test
+    void throwOnRequestToMalformedUrl()
+    {
+        TfLApiClient client = clientWithFakeCredentials;
+        client.setApiBaseUrl("Malformed URI");  // Whitespace is an invalid character
+
+        assertThrows(URISyntaxException.class, () -> client.sendRawRequest("fakePath"),
+                     "Sending a request to a malformed URL should throw");
     }
 }

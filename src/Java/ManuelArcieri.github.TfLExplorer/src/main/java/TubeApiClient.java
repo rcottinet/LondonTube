@@ -9,8 +9,8 @@ public class TubeApiClient extends TfLApiClient
         super(applicationId, applicationKey);
     }
 
-    public TubeApiClient(String applicationId, String applicationKey, long timeoutInSeconds)
+    public TubeApiClient(String applicationId, String applicationKey, int timeoutInMilliseconds)
     {
-        super(applicationId, applicationKey, timeoutInSeconds);
+        super(applicationId, applicationKey, timeoutInMilliseconds);
     }
 }

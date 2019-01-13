@@ -2,36 +2,34 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
-import java.net.http.*;
-import java.time.Duration;
 
 public class TfLApiClient
 {
-    private final String[] DEFAULT_HEADERS = { "User-Agent", "ManuelArcieri.github.TfLExplorer (Java)" };
+    private final String[] DEFAULT_HEADERS = {
+            "User-Agent", "ManuelArcieri.github.TfLExplorer (Java)",
+            "Content-Type", "application/json; charset=utf-8"
+    };
 
     private String apiBaseUrl = "api.tfl.gov.uk";
     private String appId;
     private String appKey;
-    private HttpClient client;
+    private int maxTimeoutInMilliseconds;
 
     public TfLApiClient(String applicationId, String applicationKey)
     {
-        this(applicationId, applicationKey, 10L);
+        this(applicationId, applicationKey, 5000);
     }
 
-    public TfLApiClient(String applicationId, String applicationKey, long timeoutInSeconds)
+    public TfLApiClient(String applicationId, String applicationKey, int timeoutInMilliseconds)
     {
         if (applicationId.isEmpty() || applicationKey.isEmpty())
             throw new IllegalArgumentException("'applicationId' or 'applicationKey' is empty");
 
         appId = applicationId;
         appKey = applicationKey;
-        client = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.ALWAYS)
-                .connectTimeout(Duration.ofSeconds(timeoutInSeconds))
-                .build();
+        maxTimeoutInMilliseconds = timeoutInMilliseconds;
     }
 
     public String getApiBaseUrl()
@@ -44,6 +42,7 @@ public class TfLApiClient
         if (newBaseUrl.isEmpty())
             throw new IllegalArgumentException("'newBaseUrl' is empty");
 
+
         if (newBaseUrl.startsWith("http://"))
             newBaseUrl = newBaseUrl.substring(7);
         else if (newBaseUrl.startsWith("https://"))
@@ -52,17 +51,25 @@ public class TfLApiClient
         apiBaseUrl = newBaseUrl;
     }
 
-    public HttpResponse<String> sendRawRequest(String... apiPath) throws URISyntaxException, IOException, InterruptedException
+    public Response sendRawRequest(String... apiPath) throws IOException
     {
         return sendGetRequest(apiPath);
     }
 
-    private HttpResponse<String> sendGetRequest(String... apiPath) throws URISyntaxException, IOException, InterruptedException
+    private Response sendGetRequest(String... apiPath) throws IOException
     {
         URL url = getUrlWithCredentials(apiPath);
-        HttpRequest request = HttpRequest.newBuilder(url.toURI())
-                .headers(DEFAULT_HEADERS).build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setInstanceFollowRedirects(true);
+        connection.setConnectTimeout(maxTimeoutInMilliseconds);
+        connection.setReadTimeout(maxTimeoutInMilliseconds);
+        for (int i = 0; i < DEFAULT_HEADERS.length; i += 2)
+            connection.setRequestProperty(DEFAULT_HEADERS[i], DEFAULT_HEADERS[i + 1]);
+
+        Response response = new Response(connection);
+
+        connection.disconnect();
+        return response;
     }
 
     private URL getUrlWithCredentials(String... urlPath) throws MalformedURLException
@@ -70,8 +77,7 @@ public class TfLApiClient
         String protocol = "https";
         String apiPath = "/" + String.join("/", urlPath);
         apiPath += getCredentialsAsUrlQueryString();
-        URL url = new URL(protocol, apiBaseUrl, apiPath);
-        return url;
+        return new URL(protocol, apiBaseUrl, apiPath);
     }
 
     private String getCredentialsAsUrlQueryString()

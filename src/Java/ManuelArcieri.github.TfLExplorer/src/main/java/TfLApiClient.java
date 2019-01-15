@@ -7,11 +7,6 @@ import java.net.*;
 
 public class TfLApiClient
 {
-    private final String[] DEFAULT_HEADERS = {
-            "User-Agent", "ManuelArcieri.github.TfLExplorer (Java)",
-            "Content-Type", "application/json; charset=utf-8"
-    };
-
     private String apiBaseUrl = "api.tfl.gov.uk";
     private String appId;
     private String appKey;
@@ -56,13 +51,17 @@ public class TfLApiClient
         return sendGetRequest(apiPath);
     }
 
+    private final String[] DEFAULT_HEADERS = {
+            "User-Agent", "ManuelArcieri.github.TfLExplorer (Java)",
+            "Content-Type", "application/json; charset=utf-8"
+    };
+
     private Response sendGetRequest(String... apiPath) throws IOException
     {
         URL url = getUrlWithCredentials(apiPath);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setInstanceFollowRedirects(true);
         connection.setConnectTimeout(maxTimeoutInMilliseconds);
-        connection.setReadTimeout(maxTimeoutInMilliseconds);
         for (int i = 0; i < DEFAULT_HEADERS.length; i += 2)
             connection.setRequestProperty(DEFAULT_HEADERS[i], DEFAULT_HEADERS[i + 1]);
 

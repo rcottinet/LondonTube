@@ -42,7 +42,7 @@ class TfLApiClientTest
     protected void setUpClientWithFakeCredentials()
     {
         clientWithFakeCredentials = new TfLApiClient("FakeId", "FakeKey");
-        if (appId != null && appKey != null)
+        if (appIdAndAppKeyArePresent())
             clientWithRealCredentials = new TfLApiClient(appId, appKey);
     }
 
@@ -136,8 +136,7 @@ class TfLApiClientTest
     @Test
     void sendingRawRequestToFakeApiPathShouldReturn404ErrorCode()
     {
-        assumeTrue(appId != null, "'appId' is not present");
-        assumeTrue(appKey != null, "'appKey' is not present");
+        assumeAppIdAndAppKeyPresence();
 
         TfLApiClient client = clientWithRealCredentials;
         Response response = null;
@@ -171,5 +170,16 @@ class TfLApiClientTest
 
         assertThrows(UnknownHostException.class, () -> client.sendRawRequest("fakePath"),
                      "Sending a request to a malformed URL should throw");
+    }
+
+    protected void assumeAppIdAndAppKeyPresence()
+    {
+        assumeTrue(appId != null, "'appId' is not present");
+        assumeTrue(appKey != null, "'appKey' is not present");
+    }
+
+    protected boolean appIdAndAppKeyArePresent()
+    {
+        return appId != null && appKey != null;
     }
 }

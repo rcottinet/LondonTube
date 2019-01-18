@@ -2,9 +2,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.Date;
 
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-
 public class Response
 {
     public final HttpURLConnection httpURLConnection;
@@ -22,11 +19,5 @@ public class Response
         contentType = connection.getContentType();
         contentLength = connection.getContentLengthLong();
         date = new Date(connection.getDate());
-
-        if (responseCode == HttpURLConnection.HTTP_OK)
-        {
-            InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
-            JsonArray rootElement = new JsonParser().parse(inputStream).getAsJsonArray();
-        }
     }
 }

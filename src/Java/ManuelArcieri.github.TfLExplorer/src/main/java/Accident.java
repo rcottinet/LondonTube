@@ -22,8 +22,8 @@ public class Accident
     public Accident(JsonObject rootElement)
     {
         id = rootElement.get("id").getAsLong();
-        latitude = rootElement.get("latitude").getAsDouble();
-        longitude = rootElement.get("longitude").getAsDouble();
+        latitude = rootElement.get("lat").getAsDouble();
+        longitude = rootElement.get("lon").getAsDouble();
         location = rootElement.get("location").getAsString();
         String dateString = rootElement.get("date").getAsString();
         date = JsonResponse.convertIso8601StringToDateObject(dateString);

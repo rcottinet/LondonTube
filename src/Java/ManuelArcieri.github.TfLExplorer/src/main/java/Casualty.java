@@ -14,7 +14,7 @@ public class Casualty
 
     public Casualty(JsonObject casualtyElement)
     {
-        age = casualtyElement.get("age").getAsInt();
+        age = casualtyElement.has("age") ? casualtyElement.get("age").getAsInt() : -1;
         casualtyClass = casualtyElement.get("class").getAsString();
         severity = casualtyElement.get("severity").getAsString();
         mode = casualtyElement.get("mode").getAsString();

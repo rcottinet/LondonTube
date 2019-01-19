@@ -66,8 +66,6 @@ public class TfLApiClient
             connection.setRequestProperty(DEFAULT_HEADERS[i], DEFAULT_HEADERS[i + 1]);
 
         Response response = new Response(connection);
-
-        connection.disconnect();
         return response;
     }
 

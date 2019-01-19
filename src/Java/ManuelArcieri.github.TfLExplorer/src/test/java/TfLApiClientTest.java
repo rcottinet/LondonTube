@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.*;
 
@@ -23,18 +24,29 @@ class TfLApiClientTest
     @BeforeAll
     protected static void readPrivateApiKeysIfPresent()
     {
+        Logger logger = Logger.getGlobal();
+        String fileName = "<Undefined>";
         try
         {
             File secretFile = Paths.get("secret.txt").toFile();
             if (!secretFile.exists())
+            {
+                logger.warning(String.format("File not found: '%s'.\nAll tests which need the appId and appKey will be skipped.",
+                                             secretFile.getAbsolutePath()));
                 return;
+            }
 
+            fileName = secretFile.getAbsolutePath();
             List<String> lines = Files.readAllLines(secretFile.toPath());
             appId = lines.get(0);
             appKey = lines.get(1);
+            logger.info("appId and appKey found in " + secretFile.getAbsolutePath());
         }
         catch (Exception ex)
         {
+            logger.warning(String.format("It couldn't be possible to read appId and appKey from '%s'.\n" +
+                                                 "All tests which need the appId and appKey will be skipped.\n" +
+                                                 "(Cause --> %s)", fileName, ex.toString()));
         }
     }
 

@@ -9,25 +9,26 @@ import java.util.*;
 
 import com.google.gson.*;
 
-public class JsonResponse
+public class JsonResponse extends Response
 {
-    public final Response baseResponse;
     protected Optional<JsonElement> jsonRootElement;
 
-    public JsonResponse(Response response)
+    public JsonResponse(HttpURLConnection connection) throws IOException
     {
-        baseResponse = response;
+        super(connection);
 
-        if (response.responseCode == HttpURLConnection.HTTP_OK)
+        if (responseCode == HttpURLConnection.HTTP_OK)
             try
             {
-                InputStreamReader inputStream = new InputStreamReader(response.httpURLConnection.getInputStream());
+                InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
                 jsonRootElement = Optional.of(new JsonParser().parse(inputStream));
             }
             catch (Exception ex)
             {
                 jsonRootElement = Optional.empty();
             }
+        else
+            jsonRootElement = Optional.empty();
     }
 
     public static Calendar convertIso8601StringToDateObject(String date)

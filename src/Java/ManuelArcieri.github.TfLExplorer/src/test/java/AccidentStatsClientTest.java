@@ -2,13 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import java.text.ParseException;
 import java.util.*;
 
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.*;
 
 class AccidentStatsClientTest extends TfLApiClientTest
 {
@@ -22,12 +20,51 @@ class AccidentStatsClientTest extends TfLApiClientTest
     }
 
     @Test
+    @Tag("slow")
+    void getAccidentsIn2015()
+    {
+        // This test will download ~36.5 MB of data
+        assumeAppIdAndAppKeyPresence();
+        assertDoesNotThrow(() -> {
+            AccidentStatsResponse response = accidentStatsClient.getAccidentsPerYear(2015);
+            assertEquals(200, response.responseCode, "A valid request should return a HTTP 200 response code");
+            assertTrue(response.accidents.size() > 50000);  // There are at least 50.000 accidents. Others might be added in the future.
+        }, "'getAccidentsPerYear' should not throw");
+    }
+
+    @Test
+    @Tag("slow")
     void getAccidentsIn2016()
+    {
+        // This test will download ~36.5 MB of data
+        assumeAppIdAndAppKeyPresence();
+        assertDoesNotThrow(() -> {
+            AccidentStatsResponse response = accidentStatsClient.getAccidentsPerYear(2016);
+            assertEquals(200, response.responseCode, "A valid request should return a HTTP 200 response code");
+            assertTrue(response.accidents.size() > 50000);  // There are at least 50.000 accidents. Others might be added in the future.
+        }, "'getAccidentsPerYear' should not throw");
+    }
+
+    @Test
+    @Tag("slow")
+    void getAccidentsIn2017()
+    {
+        // This test will download ~39.2 MB of data
+        assumeAppIdAndAppKeyPresence();
+        assertDoesNotThrow(() -> {
+            AccidentStatsResponse response = accidentStatsClient.getAccidentsPerYear(2017);
+            assertEquals(200, response.responseCode, "A valid request should return a HTTP 200 response code");
+            assertTrue(response.accidents.size() > 50000);  // There are at least 50.000 accidents. Others might be added in the future.
+        }, "'getAccidentsPerYear' should not throw");
+    }
+
+    @Test
+    void getAccidentsInInvalidYear()
     {
         assumeAppIdAndAppKeyPresence();
         assertDoesNotThrow(() -> {
-            Response response = accidentStatsClient.getAccidentsPerYear(2016);
-            assertTrue(response.responseCode >= 200 && response.responseCode <= 299);
+            AccidentStatsResponse response = accidentStatsClient.getAccidentsPerYear(1500);
+            assertEquals(400, response.responseCode, "An invalid request should return a HTTP 400 response code");
         }, "'getAccidentsPerYear' should not throw");
     }
 

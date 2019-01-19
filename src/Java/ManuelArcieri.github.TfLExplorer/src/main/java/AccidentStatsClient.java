@@ -16,8 +16,9 @@ public class AccidentStatsClient extends TfLApiClient
         super(applicationId, applicationKey, timeoutInMilliseconds);
     }
 
-    public Response getAccidentsPerYear(Integer year) throws IOException
+    public AccidentStatsResponse getAccidentsPerYear(Integer year) throws IOException
     {
-        return sendRawRequest("AccidentStats", year.toString());
+        Response baseResponse = sendRawRequest("AccidentStats", year.toString());
+        return new AccidentStatsResponse(baseResponse.httpURLConnection);
     }
 }

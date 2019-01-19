@@ -4,45 +4,43 @@
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 import com.google.gson.*;
 
-public class AccidentStatsResponse
+public class AccidentStatsResponse extends JsonResponse
 {
-    public final JsonResponse jsonResponse;
-    protected HashSet<Accident> accidents;
+    public final Set<Accident> accidents;
 
-    public AccidentStatsResponse(JsonResponse response)
+    public AccidentStatsResponse(HttpURLConnection connection) throws IOException
     {
-        jsonResponse = response;
-        if (jsonResponse.jsonRootElement.isPresent())
-            readAllAccidentsFromJson();
-        else
-            throwOnInvalidData("The server didn't provide a valid JSON response");
+        super(connection);
+
+        Set<Accident> accidentSet = null;
+        if (jsonRootElement.isPresent())
+            accidentSet = readAllAccidentsFromJson();
+        accidents = accidentSet;
     }
 
-    private void throwOnInvalidData(String message)
+    private Set<Accident> readAllAccidentsFromJson()
     {
-        throw new IllegalArgumentException(message);
-    }
-
-    private void readAllAccidentsFromJson()
-    {
-        JsonElement root = jsonResponse.jsonRootElement.get();
+        JsonElement root = jsonRootElement.get();
         if (!root.isJsonArray())
-            throwOnInvalidData("JSON root element is not an array");
+            return null;
 
         JsonArray array = root.getAsJsonArray();
-        accidents = new HashSet<>(array.size());
+        HashSet<Accident> accidentsSet = new HashSet<>(array.size());
         for (JsonElement element : array)
-            if (element.isJsonObject())
-                readSingleAccident(element.getAsJsonObject());
-    }
+            try
+            {
+                if (element.isJsonObject())
+                {
+                    Accident accident = new Accident(element.getAsJsonObject());
+                    accidentsSet.add(accident);
+                }
+            }
+            catch (Exception ex) {}
 
-    private void readSingleAccident(JsonObject object)
-    {
-
+        return accidentsSet;
     }
 }

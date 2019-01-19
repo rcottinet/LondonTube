@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+package ManuelArcieri.github.TfLExplorer;
+
 import java.io.IOException;
 
 
@@ -40,7 +42,7 @@ public class AccidentStatsClient extends TfLApiClient
 
      @param year Year in which the accidents occurred
 
-     @return An AccidentStatsResponse containing a list of all occurred accidents
+     @return An ManuelArcieri.github.TfLExplorer.AccidentStatsResponse containing a list of all occurred accidents
 
      @throws IOException If there's been a connection problem
      */

@@ -2,11 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.util.*;
+package ManuelArcieri.github.TfLExplorer;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  A wrapper around an HTTP response which returned an AccidentStats object in JSON format

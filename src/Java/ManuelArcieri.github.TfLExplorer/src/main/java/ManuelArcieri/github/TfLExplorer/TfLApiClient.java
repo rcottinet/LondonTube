@@ -2,8 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import java.io.*;
-import java.net.*;
+package ManuelArcieri.github.TfLExplorer;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  A basic API client which provides authentication and routing to the TfL servers.
@@ -80,7 +84,7 @@ public class TfLApiClient
 
      @param apiPath API path of the request
 
-     @return A new Response object holding the returned values from the TfL servers
+     @return A new ManuelArcieri.github.TfLExplorer.Response object holding the returned values from the TfL servers
 
      @throws IOException If there's been a connection problem
      */

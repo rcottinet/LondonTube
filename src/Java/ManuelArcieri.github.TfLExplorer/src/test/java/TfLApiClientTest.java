@@ -8,6 +8,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.logging.Logger;
 
+import ManuelArcieri.github.TfLExplorer.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

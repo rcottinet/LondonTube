@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+package ManuelArcieri.github.TfLExplorer;
+
 import com.google.gson.JsonObject;
 
 /**
@@ -16,9 +18,9 @@ public class Casualty
     public final String ageBand;
 
     /**
-     Create a new Casualty reading all its properties from its JSON object
+     Create a new ManuelArcieri.github.TfLExplorer.Casualty reading all its properties from its JSON object
 
-     @param casualtyElement A JSON element containing a Casualty object
+     @param casualtyElement A JSON element containing a ManuelArcieri.github.TfLExplorer.Casualty object
      */
     public Casualty(JsonObject casualtyElement)
     {

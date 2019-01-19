@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+package ManuelArcieri.github.TfLExplorer;
+
 import com.google.gson.JsonObject;
 
 /**
@@ -12,9 +14,9 @@ public class Vehicle
     public String type;
 
     /**
-     Create a new Vehicle reading all its properties from its JSON object
+     Create a new ManuelArcieri.github.TfLExplorer.Vehicle reading all its properties from its JSON object
 
-     @param vehicleElement A JSON element containing a Casualty object
+     @param vehicleElement A JSON element containing a ManuelArcieri.github.TfLExplorer.Casualty object
      */
     public Vehicle(JsonObject vehicleElement)
     {

@@ -4,6 +4,9 @@
 
 import com.google.gson.JsonObject;
 
+/**
+ A casualty in an AccidentStats accident
+ */
 public class Casualty
 {
     public final int age;
@@ -12,6 +15,11 @@ public class Casualty
     public final String mode;
     public final String ageBand;
 
+    /**
+     Create a new Casualty reading all its properties from its JSON object
+
+     @param casualtyElement A JSON element containing a Casualty object
+     */
     public Casualty(JsonObject casualtyElement)
     {
         age = casualtyElement.has("age") ? casualtyElement.get("age").getAsInt() : -1;

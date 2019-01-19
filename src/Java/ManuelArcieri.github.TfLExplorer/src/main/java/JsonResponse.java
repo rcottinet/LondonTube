@@ -9,10 +9,20 @@ import java.util.*;
 
 import com.google.gson.*;
 
-public class JsonResponse extends Response
+/**
+ A wrapper around an HTTP response which returned a JSON object
+ */
+public abstract class JsonResponse extends Response
 {
     protected Optional<JsonElement> jsonRootElement;
 
+    /**
+     Create a wrapper around an HTTP response which returned a JSON object
+
+     @param connection The HTTP connection which should be analyzed
+
+     @throws IOException If there's been a connection problem
+     */
     public JsonResponse(HttpURLConnection connection) throws IOException
     {
         super(connection);
@@ -31,7 +41,15 @@ public class JsonResponse extends Response
             jsonRootElement = Optional.empty();
     }
 
-    public static Calendar convertIso8601StringToDateObject(String date)
+
+    /**
+     Convert an ISO 8601 date string to a Calendar object
+
+     @param date Date string in ISO 8601 format
+
+     @return A Calendar object representing the given date string
+     */
+    public static Calendar convertIso8601StringToCalendarObject(String date)
     {
         TimeZone UTCtimeZone = TimeZone.getTimeZone("UTC");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -48,6 +66,13 @@ public class JsonResponse extends Response
         }
     }
 
+    /**
+     Convert a Date object to a Calendar
+
+     @param date Date object which should be converted
+
+     @return A Calendar object representing the given Date
+     */
     public static Calendar toCalendar(Date date)
     {
         Calendar calendar = GregorianCalendar.getInstance(Locale.UK);

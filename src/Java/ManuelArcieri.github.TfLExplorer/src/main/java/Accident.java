@@ -2,11 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import java.util.*;
 
+import com.google.gson.*;
+
+
+/**
+ An object encapsulating all the properties of an AccidentStats accident
+ */
 public class Accident
 {
     public final long id;
@@ -19,6 +22,11 @@ public class Accident
     public final Set<Casualty> casualties;
     public final Set<Vehicle> vehicles;
 
+    /**
+     Create an object encapsulating all the properties of an AccidentStats accident given its JSON representation
+
+     @param rootElement JSON element containing all the properties of the accident
+     */
     public Accident(JsonObject rootElement)
     {
         id = rootElement.get("id").getAsLong();
@@ -26,7 +34,7 @@ public class Accident
         longitude = rootElement.get("lon").getAsDouble();
         location = rootElement.get("location").getAsString();
         String dateString = rootElement.get("date").getAsString();
-        date = JsonResponse.convertIso8601StringToDateObject(dateString);
+        date = JsonResponse.convertIso8601StringToCalendarObject(dateString);
         severity = rootElement.get("severity").getAsString();
         borough = rootElement.get("borough").getAsString();
 

@@ -72,7 +72,7 @@ class AccidentStatsClientTest extends TfLApiClientTest
     void convertIsoDateStringInDateObject()
     {
         String dateString = "2016-06-04T20:00:00Z";
-        Calendar calendar = JsonResponse.convertIso8601StringToDateObject(dateString);
+        Calendar calendar = JsonResponse.convertIso8601StringToCalendarObject(dateString);
 
         assertEquals(2016, calendar.get(Calendar.YEAR));
         assertEquals(Calendar.JUNE, calendar.get(Calendar.MONTH));
@@ -84,7 +84,7 @@ class AccidentStatsClientTest extends TfLApiClientTest
     void convertingInvalidIsoDateStringShouldThrow()
     {
         String dateString = "201X-06-04T20:00:00Z";
-        Calendar calendar = JsonResponse.convertIso8601StringToDateObject(dateString);
-        assertNull(calendar, "'convertIso8601StringToDateObject' should return null if it gets invalid data");
+        Calendar calendar = JsonResponse.convertIso8601StringToCalendarObject(dateString);
+        assertNull(calendar, "'convertIso8601StringToCalendarObject' should return null if it gets invalid data");
     }
 }

@@ -8,10 +8,20 @@ import java.util.*;
 
 import com.google.gson.*;
 
+/**
+ A wrapper around an HTTP response which returned an AccidentStats object in JSON format
+ */
 public class AccidentStatsResponse extends JsonResponse
 {
     public final Set<Accident> accidents;
 
+    /**
+     Create a wrapper around an HTTP response which returned an AccidentStats object in JSON format
+
+     @param connection The HTTP connection which should be analyzed
+
+     @throws IOException If there's been a connection problem
+     */
     public AccidentStatsResponse(HttpURLConnection connection) throws IOException
     {
         super(connection);

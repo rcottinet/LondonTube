@@ -4,10 +4,18 @@
 
 import com.google.gson.JsonObject;
 
+/**
+ A vehicle involved in an AccidentStats accident
+ */
 public class Vehicle
 {
     public String type;
 
+    /**
+     Create a new Vehicle reading all its properties from its JSON object
+
+     @param vehicleElement A JSON element containing a Casualty object
+     */
     public Vehicle(JsonObject vehicleElement)
     {
         type = vehicleElement.get("type").getAsString();

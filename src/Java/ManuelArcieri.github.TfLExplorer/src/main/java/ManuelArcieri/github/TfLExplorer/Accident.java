@@ -21,8 +21,8 @@ public class Accident
     public final Calendar date;
     public final String severity;
     public final String borough;
-    public final Set<Casualty> casualties;
-    public final Set<Vehicle> vehicles;
+    public final List<Casualty> casualties;
+    public final List<Vehicle> vehicles;
 
     /**
      Create an object encapsulating all the properties of an AccidentStats accident given its JSON representation
@@ -40,12 +40,12 @@ public class Accident
         severity = rootElement.get("severity").getAsString();
         borough = rootElement.get("borough").getAsString();
 
-        HashSet<Casualty> casualtyList = new HashSet<>();
+        ArrayList<Casualty> casualtyList = new ArrayList<>();
         for (JsonElement casualty : rootElement.get("casualties").getAsJsonArray())
             casualtyList.add(new Casualty(casualty.getAsJsonObject()));
         casualties = casualtyList;
 
-        HashSet<Vehicle> vehicleList = new HashSet<>();
+        ArrayList<Vehicle> vehicleList = new ArrayList<>();
         for (JsonElement vehicle : rootElement.get("vehicles").getAsJsonArray())
             vehicleList.add(new Vehicle(vehicle.getAsJsonObject()));
         vehicles = vehicleList;

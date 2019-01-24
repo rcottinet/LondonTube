@@ -1,4 +1,4 @@
-# TfL Explorer
+# :light_rail: TfL Explorer
 **TfL Explorer** is a Java library which offers you a **user-friendly interface** to communicate with the **Transport for London Unified API** in an **object-oriented fashion**.
 
 This project is still in its early stage. Several features are missing, while many others are currently being implemented.

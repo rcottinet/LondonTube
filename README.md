@@ -8,9 +8,9 @@ This project is still in its early stage. Several features are missing, while ma
 TfL Explorer is mainly composed of a **set of web clients**, each wrapped around its specific API implementation.
 You can refer to the official [TfL Unified API documentation](https://api.tfl.gov.uk) to get a general idea of how they're structured.
 
-Here's a list of all API clients:
+Here's a list of all API clients (click on the name for details):
 - **Completed**
-    - AccidentStatsClient   
+    - [AccidentStatsClient](https://github.com/ManuelArcieri/TfLExplorer/wiki/AccidentStats-API)  
 - **Under development**
     - AirQualityClient
 - **Planned**
@@ -53,7 +53,7 @@ if (response.responseCode == HttpURLConnection.HTTP_OK)
 }
 ```
 
-_I'll publish a complete list of all properties as soon as possible._
+Check the [wiki](https://github.com/ManuelArcieri/TfLExplorer/wiki) for **further information**.
 
 ## Where can I get my Application ID and Key?
 

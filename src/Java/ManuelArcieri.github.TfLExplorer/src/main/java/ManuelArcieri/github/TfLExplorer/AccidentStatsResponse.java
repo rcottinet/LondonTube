@@ -30,11 +30,11 @@ public class AccidentStatsResponse extends JsonResponse
 
         List<Accident> accidentList = null;
         if (jsonRootElement.isPresent())
-            accidentList = readAllAccidentsFromJson();
+            accidentList = getAllAccidentsFromJson();
         accidents = accidentList;
     }
 
-    private List<Accident> readAllAccidentsFromJson()
+    private List<Accident> getAllAccidentsFromJson()
     {
         JsonElement root = jsonRootElement.get();
         if (!root.isJsonArray())

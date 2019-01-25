@@ -42,7 +42,7 @@ public class AccidentStatsClient extends TfLApiClient
 
      @param year Year in which the accidents occurred
 
-     @return An ManuelArcieri.github.TfLExplorer.AccidentStatsResponse containing a list of all occurred accidents
+     @return An AccidentStatsResponse containing a list of all occurred accidents
 
      @throws IOException If there's been a connection problem
      */

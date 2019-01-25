@@ -10,13 +10,13 @@ You can refer to the official [TfL Unified API documentation](https://api.tfl.go
 
 Here's a list of all API clients (click on the name for details):
 - **Completed**
-    - [AccidentStatsClient](https://github.com/ManuelArcieri/TfLExplorer/wiki/AccidentStats-API)  
+    - [AccidentStatsClient](https://github.com/ManuelArcieri/TfLExplorer/wiki/AccidentStats-API)
+    - [AirQualityClient](https://github.com/ManuelArcieri/TfLExplorer/wiki/AirQuality-API)
 - **Under development**
-    - AirQualityClient
+    - LineClient
 - **Planned**
     - BikePointClient
     - JourneyClient
-    - LineClient
     - ModeClient
     - OccupancyClient
     - PlaceClient

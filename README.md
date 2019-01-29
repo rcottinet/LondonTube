@@ -58,3 +58,8 @@ Check the [wiki](https://github.com/ManuelArcieri/TfLExplorer/wiki) for **furthe
 ## Where can I get my Application ID and Key?
 
 You can get your own authentication credentials from the [API portal of Transport for London](https://api-portal.tfl.gov.uk/login).
+
+## How can I use it?
+You can download the **latest version of TfL Explorer** [from the GitHub release panel](https://github.com/ManuelArcieri/TfLExplorer/releases).
+
+Please, [open a new issue](https://github.com/ManuelArcieri/TfLExplorer/issues/new/choose) if you find a bug or something you don't like. Thanks! :wink:

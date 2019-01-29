@@ -62,7 +62,6 @@ public class Forecast
     private String getStringWithoutSymbols(String text)
     {
         return text.replaceAll("&lt;br/&gt;", "\n")
-                .replaceAll("&#39;", "'")
-                .replaceAll("&lt;br/&gt;", "");
+                .replaceAll("&#39;", "'");
     }
 }

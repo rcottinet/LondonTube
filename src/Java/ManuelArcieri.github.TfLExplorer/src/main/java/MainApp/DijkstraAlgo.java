@@ -63,7 +63,7 @@ public class DijkstraAlgo {
 
     public static void main(String[] args){
 
-        //initialize the graph base on the Romania map
+        //initialize the graph base on the LondonTubeMap
 
         /*
         Marylebone

@@ -64,31 +64,67 @@ public class DijkstraAlgo {
     public static void main(String[] args){
 
         //initialize the graph base on the Romania map
-        Node n1 = new Node("Arad");
-        Node n2 = new Node("Zerind");
-        Node n3 = new Node("Oradea");
-        Node n4 = new Node("Sibiu");
-        Node n5 = new Node("Fagaras");
-        Node n6 = new Node("Rimnicu Vilcea");
-        Node n7 = new Node("Pitesti");
-        Node n8 = new Node("Timisoara");
-        Node n9 = new Node("Lugoj");
-        Node n10 = new Node("Mehadia");
-        Node n11 = new Node("Drobeta");
-        Node n12 = new Node("Craiova");
-        Node n13 = new Node("Bucharest");
-        Node n14 = new Node("Giurgiu");
+
+        /*
+        Marylebone
+        BakerStreet
+        RegentsPark
+        Oxford Circus
+        Bond Street
+        Marble Arch
+        Lancaster Gate
+        Hyde Park Corner
+        Green Park
+        Piccadilly Circus
+        Tottenham Court Road
+        Warren Street
+        Goodge Street
+        Holborn
+        Convent Garden
+        Leicester Square
+        Charing Cross
+         */
+        Node n1 = new Node("Marylebone");
+        Node n2 = new Node("BakerStreet");
+        Node n3 = new Node("RegentsPark");
+        Node n4 = new Node("Oxford Circus");
+        Node n5 = new Node("Bond Street");
+        Node n6 = new Node("Marble Arch");
+        Node n7 = new Node("Lancaster Gate");
+        Node n8 = new Node("Hyde Park Corner");
+        Node n9 = new Node("Green Park");
+        Node n10 = new Node("Piccadilly Circus");
+        Node n11 = new Node("Tottenham Court Road");
+        Node n12 = new Node("Warren Street");
+        Node n13 = new Node("Goodge Street");
+        Node n14 = new Node("Holborn");
+        Node n15 = new Node("Convent Garden");
+        Node n16 = new Node("Leicester Square");
+        Node n17 = new Node("Charing Cross");
+
+
+        /*
+        Node[] nodes = {n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14};
+
+        for ( Node n : nodes
+             ) {
+
+            n.adjacencies = new Edge[]{
+
+            };
+
+        }*/
 
         //initialize the edges
         n1.adjacencies = new Edge[]{
-                new Edge(n2,75),
-                new Edge(n4,140),
-                new Edge(n8,118)
+                new Edge(n2,40)
         };
 
         n2.adjacencies = new Edge[]{
-                new Edge(n1,75),
-                new Edge(n3,71)
+                new Edge(n1,40),
+                new Edge(n3,71),
+                new Edge(n5,64)
+
         };
 
         n3.adjacencies = new Edge[]{
@@ -101,60 +137,87 @@ public class DijkstraAlgo {
                 new Edge(n5,99),
                 new Edge(n3,151),
                 new Edge(n6,80),
+                new Edge(n9,75),
+                new Edge(n10,68),
+                new Edge(n11,103),
+                new Edge(n12,120)
+
+
         };
 
         n5.adjacencies = new Edge[]{
-                new Edge(n4,99),
-                new Edge(n13,211)
+                new Edge(n2,78),
+                new Edge(n6,45),
+                new Edge(n4,69),
+                new Edge(n9,85)
         };
 
         n6.adjacencies = new Edge[]{
                 new Edge(n4,80),
-                new Edge(n7,97),
-                new Edge(n12,146)
+                new Edge(n7,97)
         };
 
         n7.adjacencies = new Edge[]{
-                new Edge(n6,97),
-                new Edge(n13,101),
-                new Edge(n12,138)
+                new Edge(n6,97)
         };
 
         n8.adjacencies = new Edge[]{
-                new Edge(n1,118),
                 new Edge(n9,111)
         };
 
         n9.adjacencies = new Edge[]{
                 new Edge(n8,111),
-                new Edge(n10,70)
+                new Edge(n10,70),
+                new Edge(n5,70),
+                new Edge(n4,70)
+
         };
 
         n10.adjacencies = new Edge[]{
                 new Edge(n9,70),
-                new Edge(n11,75)
+                new Edge(n4,75),
+                new Edge(n16,70),
+                new Edge(n17,75)
         };
 
         n11.adjacencies = new Edge[]{
-                new Edge(n10,75),
-                new Edge(n12,120)
+                new Edge(n9,75),
+                new Edge(n16,120),
+                new Edge(n14,120),
+                new Edge(n13,120)
         };
 
         n12.adjacencies = new Edge[]{
-                new Edge(n11,120),
-                new Edge(n6,146),
-                new Edge(n7,138)
+                new Edge(n4,120),
+                new Edge(n13,146)
         };
 
         n13.adjacencies = new Edge[]{
-                new Edge(n7,101),
-                new Edge(n14,90),
-                new Edge(n5,211)
+                new Edge(n12,101),
+                new Edge(n14,90)
         };
 
         n14.adjacencies = new Edge[]{
-                new Edge(n13,90)
+                new Edge(n11,90),
+                new Edge(n15,90)
         };
+        n15.adjacencies = new Edge[]{
+                new Edge(n14,90),
+                new Edge(n16,90)
+        };
+
+        n16.adjacencies = new Edge[]{
+                new Edge(n11,90),
+                new Edge(n15,90),
+                new Edge(n17,90),
+                new Edge(n10,90)
+        };
+
+        n17.adjacencies = new Edge[]{
+                new Edge(n10,90),
+                new Edge(n16,90)
+        };
+
 
         Node[] nodes = {n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14};
 
@@ -170,7 +233,7 @@ public class DijkstraAlgo {
     		System.out.println("Path: " + path);
 		}
 
-        List<Node> path = getShortestPathTo(n13);
+        List<Node> path = getShortestPathTo(n16);
         System.out.println("Path: " + path);
 
     }

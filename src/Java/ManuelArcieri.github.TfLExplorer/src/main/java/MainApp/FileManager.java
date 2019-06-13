@@ -37,13 +37,13 @@ public class FileManager {
             Iterator rows = sheet.rowIterator();
 
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/londontube", "root", "camille claudel");
+                    "jdbc:mysql://localhost/londontube?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "londontube", "");
 
             statement = connection.createStatement();
 
             while (rows.hasNext()){
 
-                //stations.clear();
+                stations.clear();
 
 
 
@@ -54,14 +54,14 @@ public class FileManager {
                 while (cells.hasNext()){
 
                     HSSFCell cell = (HSSFCell) cells.next();
-
                     if (CellType.NUMERIC == cell.getCellType())
-                        stations.add(Integer.toString((int) cell.getNumericCellValue()));
+                        stations.add(Double.toString(cell.getNumericCellValue()));
                     else if (CellType.STRING == cell.getCellType())
                         stations.add(cell.getStringCellValue());
+
+                    System.out.println(stations);
                 }
 
-                System.out.println(stations);
 
                 //Insertion en BDD
                 try {
@@ -82,6 +82,7 @@ public class FileManager {
 
 
                 }catch (Exception e){
+                    System.out.println("hello c'est l'erreur");
                      e.printStackTrace();
                 }
 

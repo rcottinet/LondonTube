@@ -1,8 +1,10 @@
 package MainApp;
 
+import java.util.ArrayList;
+
 public class Node implements Comparable<Node>{
     public final String value;
-    public Edge[] adjacencies;
+    public ArrayList<Edge> adjacencies = new ArrayList<>();
     public double shortestDistance = Double.POSITIVE_INFINITY;
     public Node parent;
 

@@ -67,8 +67,6 @@ public class FileManager {
                 try {
 
 
-
-
                     String sql = String
                             .format("INSERT INTO StationDistance(Line, Direction, StationFrom, StationTo, Distance, RunningTime, AMPeak, InterPeak) VALUES " +
                                             "('%s','%s','%s','%s','%s','%s','%s','%s')",

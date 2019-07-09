@@ -1,6 +1,13 @@
 
 
 
+* {
+
+    -fx-primary : #011F4B;
+    -fx-secondary : #A7ADBA;
+}
+
+
 
 .accordion .titled-pane .title{
     -fx-background-color: #9F9E9E;
@@ -9,4 +16,9 @@
 
 .anchorPane .vBox {
     -fx-background-color: #E9E9E9;
+}
+
+.button {
+
+    -fx-background-color: -fx-primary;
 }

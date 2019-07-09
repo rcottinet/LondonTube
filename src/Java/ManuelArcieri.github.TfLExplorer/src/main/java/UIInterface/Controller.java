@@ -1,24 +1,36 @@
 package UIInterface;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class Controller {
+
+import MainApp.DijkstraAlgo;
+
+public class Controller implements Initializable{
 
 
     @FXML
-    private TextField stationFrom = new TextField();
+    private TextField stationFrom;
 
     @FXML
-    private TextField stationTo = new TextField();
+    private TextField stationTo;
 
     @FXML
     Button submit;
@@ -33,59 +45,64 @@ public class Controller {
     Stage stage = (Stage) window;
 
     @FXML
-    Label station = new Label();
+    Label station;
+
+
+     @FXML
+     ListProperty<String> listProperty = new SimpleListProperty<>();
+
+     @FXML
+     ListView stationsList;
+
+     ArrayList<String> stations = new ArrayList<>();
+
+
+
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+
+        stations.add("Marylebone");
+        stations.add("Baker Street");
+        stations.add("Oxford Circus");
+
+
+
+        //stationsList.itemsProperty().bind(listProperty);
+
+        //listProperty.set(FXCollections.observableArrayList(stations));
+
+
+    }
+
 
     @FXML
     public void buttonSubmitPressed() throws IOException
     {
 
 
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("displayPath.fxml"));
+       // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
 
-        //Parent displayPathParent = FXMLLoader.load(getClass().getResource("displayPath.fxml"));
 
-        stage = (Stage) submit.getScene().getWindow();
-        scene = new Scene(fxmlLoader.getRoot());
-        stage.setScene(scene);
 
-        //station.setLabelFor();
 
-        //System.out.println(stationFrom.getText());
+        stationsList.getItems().addAll(DijkstraAlgo.finalDirection(stationFrom.getText(), stationTo.getText()));
+
+
+      // listProperty.set(FXCollections.observableArrayList(stations));
+
+
+
+
 
 
 
     }
 
-
-
-
-
-    /*public void buttonSubmitPressed(ActionEvent event) throws IOException{
-
-        //window = primaryStage;
-        //String stationFromText = stationFrom.getText();
-        //String stationToText = stationTo.getText();
-
-
-
-            Parent displayPathParent = FXMLLoader.load(getClass().getResource("displayPath.fxml"));
-            Scene displayPath = new Scene(displayPathParent);
-
-            //Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-
-            setScene(displayPath);
-            window.show();
-
-
-
-
-
-
-
-
-        //System.out.printf("Station from : %s  Station To : %s ", stationFromText, stationToText);
-
-    }*/
 
 
 

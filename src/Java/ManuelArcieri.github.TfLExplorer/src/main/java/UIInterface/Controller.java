@@ -1,8 +1,7 @@
 package UIInterface;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
+import com.sun.javafx.scene.control.skin.TextFieldSkin;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,19 +10,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
+import service.ServiceSqlRequest;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.security.Key;
+import java.util.*;
 
+import static java.awt.Event.ENTER;
 
 import MainApp.DijkstraAlgo;
 
 public class Controller implements Initializable{
+
 
 
     @FXML
@@ -47,6 +52,58 @@ public class Controller implements Initializable{
     @FXML
     Label station;
 
+
+
+    Set<String> possibleWordSet = new HashSet<>();
+    private AutoCompletionBinding<String> autoCompletionBinding;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ServiceSqlRequest base = new ServiceSqlRequest();
+        ArrayList<String> listStationPossible = base.getListNameAllStation();
+
+
+        autoCompletionBinding = TextFields.bindAutoCompletion(stationFrom, listStationPossible);
+
+        stationFrom.setOnKeyPressed((e) -> {
+                switch(e.getCode()) {
+                    case ENTER:
+                        learnWorld(stationFrom.getText());
+                        break;
+                    default:
+                        break;
+                }
+        });
+
+        autoCompletionBinding = TextFields.bindAutoCompletion(stationTo, listStationPossible);
+
+
+        stationTo.setOnKeyPressed((e) -> {
+            switch(e.getCode()) {
+                case ENTER:
+                    learnWorld(stationTo.getText());
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    private void learnWorld(String text) {
+        possibleWordSet.add(text);
+
+        if(autoCompletionBinding != null){
+            autoCompletionBinding.dispose();
+
+        }
+
+        autoCompletionBinding = TextFields.bindAutoCompletion(stationFrom, possibleWordSet);
+    }
+
+    @FXML
+    public void buttonSubmitPressed() throws IOException
+    {
 
      @FXML
      ListProperty<String> listProperty = new SimpleListProperty<>();

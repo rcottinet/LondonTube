@@ -1,6 +1,8 @@
 package UIInterface;
 
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +54,11 @@ public class Controller implements Initializable{
     @FXML
     Label station;
 
+    @FXML
+    ListProperty<String> listProperty = new SimpleListProperty<>();
+
+    @FXML
+    ListView stationsList;
 
 
     Set<String> possibleWordSet = new HashSet<>();
@@ -60,6 +67,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         ServiceSqlRequest base = new ServiceSqlRequest();
         ArrayList<String> listStationPossible = base.getListNameAllStation();
 
@@ -101,40 +110,11 @@ public class Controller implements Initializable{
         autoCompletionBinding = TextFields.bindAutoCompletion(stationFrom, possibleWordSet);
     }
 
-    @FXML
-    public void buttonSubmitPressed() throws IOException
-    {
-
-     @FXML
-     ListProperty<String> listProperty = new SimpleListProperty<>();
-
-     @FXML
-     ListView stationsList;
-
-     ArrayList<String> stations = new ArrayList<>();
 
 
 
 
 
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-
-        stations.add("Marylebone");
-        stations.add("Baker Street");
-        stations.add("Oxford Circus");
-
-
-
-        //stationsList.itemsProperty().bind(listProperty);
-
-        //listProperty.set(FXCollections.observableArrayList(stations));
-
-
-    }
 
 
     @FXML

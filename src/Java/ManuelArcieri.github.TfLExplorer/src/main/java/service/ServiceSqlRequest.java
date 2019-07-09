@@ -91,6 +91,40 @@ public  class ServiceSqlRequest {
         return listStation;
     }
 
+    public ArrayList<String> getListNameAllStation(){
+
+        jdbcConnection();
+
+        String sql = String.format("SELECT DISTINCT StationFrom,StationFrom FROM stationdistance");
+
+        ArrayList<String> listStation = new ArrayList<>();
+
+        try{
+            ResultSet rs;
+            rs = statement.executeQuery(sql);
+            while(rs.next()){
+                listStation.add(rs.getString("StationFrom"));
+            }
+            rs.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        try {
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listStation;
+    }
+
     public String getLinebetweenStations(String StationA, String StationB){
         jdbcConnection();
 

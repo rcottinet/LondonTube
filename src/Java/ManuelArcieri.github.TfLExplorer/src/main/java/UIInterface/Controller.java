@@ -123,7 +123,7 @@ public class Controller implements Initializable{
 
 
        // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
-
+        stationsList.getItems().clear();
 
 
 

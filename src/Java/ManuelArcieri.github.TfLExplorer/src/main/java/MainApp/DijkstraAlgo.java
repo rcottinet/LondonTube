@@ -1,9 +1,7 @@
 package MainApp;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import service.ServiceSqlRequest;
+import java.util.*;
 
 public class DijkstraAlgo {
     /* Dijkstra Algorithm
@@ -30,16 +28,23 @@ public class DijkstraAlgo {
 
                 //relax(u,v,weight)
                 double distanceFromU = u.shortestDistance+weight;
-                if(distanceFromU<v.shortestDistance){
+
+                try{
+                    if(distanceFromU<v.shortestDistance){
 
 					/*remove v from queue for updating
 					the shortestDistance value*/
-                    queue.remove(v);
-                    v.shortestDistance = distanceFromU;
-                    v.parent = u;
-                    queue.add(v);
+                        queue.remove(v);
+                        v.shortestDistance = distanceFromU;
+                        v.parent = u;
+                        queue.add(v);
+
+                    }
+                }catch (Exception er){
+                    System.out.println(er);
 
                 }
+
             }
         }
     }
@@ -48,6 +53,7 @@ public class DijkstraAlgo {
 
         //trace path from target to source
         List<Node> path = new ArrayList<Node>();
+
         for(Node node = target; node!=null; node = node.parent){
             path.add(node);
         }
@@ -59,182 +65,179 @@ public class DijkstraAlgo {
         return path;
     }
 
+    public static double getTimeShortestPathTo(List<Node> path){
 
+        double time =0;
+        ServiceSqlRequest base = new ServiceSqlRequest();
+        String previous_line = "";
+        previous_line = base.getLinebetweenStations(path.get(0).value,path.get(1).value);
+        for(int i=1; i< path.size(); i++){
+
+
+
+                /*Add 1 min if their is line changement*/
+                if(!previous_line.equals(base.getLinebetweenStations(path.get(i - 1).value, path.get(i).value))){
+                    time +=3;
+
+                    System.out.println("");
+
+                    System.out.println(base.getLinebetweenStations(path.get(0).value,path.get(1).value )+ " [INFO] 3 min add for the line changement");
+                    previous_line = base.getLinebetweenStations(path.get(i-1).value,path.get(i).value);
+
+
+                }else{
+                    System.out.println("");
+                }
+
+
+                System.out.println("Station : "+path.get(i).value+" join by the line : "+previous_line);
+                time += base.getTimeBetweenStations(path.get(i-1).value,path.get(i).value);
+
+        }
+        return time;
+    }
+
+    public static Node findUsingEnhancedForLoop(
+            String station, List<Node> nodes) {
+
+        for (Node n : nodes) {
+            if (n.value.equals(station)) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+    public static Node[] initGraphe(){
+
+        ServiceSqlRequest base = new ServiceSqlRequest();
+
+        return null;
+    }
+
+
+
+    public static List<Node> finalDirection(String stationFrom, String stationTo){
+
+        ServiceSqlRequest base = new ServiceSqlRequest();
+
+        ArrayList<Node> nodeslist = new ArrayList<>(base.getListAllStation());
+
+        HashMap<String, Node> hmap = new HashMap<>();
+
+
+        for( Node n : nodeslist){
+            hmap.put(n.value,n);
+        }
+        for(Map.Entry<String, Node> entry : hmap.entrySet()) {
+
+
+            String cle = entry.getKey();
+            Node valeur = entry.getValue();
+
+
+            /*try {*/
+            for (String edge : base.getAdjacencies(cle)) {
+                double time = 0;
+                try {
+                    time = base.getTimeBetweenStations(
+                            valeur.value,
+                            hmap.get(edge).value);
+                }catch(Exception e ){
+                    System.out.println(e +" : Erreur pour le getTime dans l'affecte des arretes");
+                }
+
+
+
+                try{
+                    valeur.adjacencies.add(
+
+                            new Edge(
+                                    hmap.get(edge),
+                                    time
+                            )
+                    );
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+
+            }
+            /*}catch (Exception e) {
+                System.out.println(e);
+            }*/
+
+
+
+            entry.setValue(valeur);
+        }
+
+        nodeslist.clear();
+
+        for(Map.Entry<String, Node> entry : hmap.entrySet()) {
+            nodeslist.add(entry.getValue());
+        }
+
+        //initialize the edges
+        /*n1.adjacencies = new Edge[]{
+                new Edge(n2,base.getTimeBetweenStations(n1.value,n2.value))
+        };
+        */
+
+        /*Node[] nodes = {n1,....,n14};*/
+
+        //compute paths
+
+
+
+
+        computePaths(findUsingEnhancedForLoop(stationFrom.toUpperCase(),nodeslist));
+
+
+        //print shortest paths
+
+        for(Node n: nodeslist){
+            System.out.println("Distance to " +
+                    n + ": " + n.shortestDistance);
+            List<Node> path = getShortestPathTo(n);
+            System.out.println("Path: " + path);
+        }
+
+
+        List<Node> path = getShortestPathTo(findUsingEnhancedForLoop(stationTo.toUpperCase(),nodeslist));
+        System.out.println("Path: " + path);
+
+
+        System.out.println("TEMPS DE TRAJET : ----> " + getTimeShortestPathTo(path));
+
+        return path;
+    }
 
     public static void main(String[] args){
 
         //initialize the graph base on the LondonTubeMap
 
-        /*
-        Marylebone
-        BakerStreet
-        RegentsPark
-        Oxford Circus
-        Bond Street
-        Marble Arch
-        Lancaster Gate
-        Hyde Park Corner
-        Green Park
-        Piccadilly Circus
-        Tottenham Court Road
-        Warren Street
-        Goodge Street
-        Holborn
-        Convent Garden
-        Leicester Square
-        Charing Cross
-         */
-        Node n1 = new Node("Marylebone");
-        Node n2 = new Node("BakerStreet");
-        Node n3 = new Node("RegentsPark");
-        Node n4 = new Node("Oxford Circus");
-        Node n5 = new Node("Bond Street");
-        Node n6 = new Node("Marble Arch");
-        Node n7 = new Node("Lancaster Gate");
-        Node n8 = new Node("Hyde Park Corner");
-        Node n9 = new Node("Green Park");
-        Node n10 = new Node("Piccadilly Circus");
-        Node n11 = new Node("Tottenham Court Road");
-        Node n12 = new Node("Warren Street");
-        Node n13 = new Node("Goodge Street");
-        Node n14 = new Node("Holborn");
-        Node n15 = new Node("Convent Garden");
-        Node n16 = new Node("Leicester Square");
-        Node n17 = new Node("Charing Cross");
+
+        /*Node n1 = new Node("Marylebone");
+        Node n2 = new Node("Baker Street");
+        Node n3 = new Node("Regents Park");
+        */
 
 
-        /*
-        Node[] nodes = {n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14};
 
-        for ( Node n : nodes
-             ) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Station from : ");
 
-            n.adjacencies = new Edge[]{
+        String stationFrom = sc.nextLine();
 
-            };
+        System.out.println("Station to : ");
 
-        }*/
+        String stationTo = sc.nextLine();
 
-        //initialize the edges
-        n1.adjacencies = new Edge[]{
-                new Edge(n2,40)
-        };
+        List<Node> path = finalDirection(stationFrom,stationTo);
 
-        n2.adjacencies = new Edge[]{
-                new Edge(n1,40),
-                new Edge(n3,71),
-                new Edge(n5,64)
-
-        };
-
-        n3.adjacencies = new Edge[]{
-                new Edge(n2,71),
-                new Edge(n4,151)
-        };
-
-        n4.adjacencies = new Edge[]{
-                new Edge(n1,140),
-                new Edge(n5,99),
-                new Edge(n3,151),
-                new Edge(n6,80),
-                new Edge(n9,75),
-                new Edge(n10,68),
-                new Edge(n11,103),
-                new Edge(n12,120)
-
-
-        };
-
-        n5.adjacencies = new Edge[]{
-                new Edge(n2,78),
-                new Edge(n6,45),
-                new Edge(n4,69),
-                new Edge(n9,85)
-        };
-
-        n6.adjacencies = new Edge[]{
-                new Edge(n4,80),
-                new Edge(n7,97)
-        };
-
-        n7.adjacencies = new Edge[]{
-                new Edge(n6,97)
-        };
-
-        n8.adjacencies = new Edge[]{
-                new Edge(n9,111)
-        };
-
-        n9.adjacencies = new Edge[]{
-                new Edge(n8,111),
-                new Edge(n10,70),
-                new Edge(n5,70),
-                new Edge(n4,70)
-
-        };
-
-        n10.adjacencies = new Edge[]{
-                new Edge(n9,70),
-                new Edge(n4,75),
-                new Edge(n16,70),
-                new Edge(n17,75)
-        };
-
-        n11.adjacencies = new Edge[]{
-                new Edge(n9,75),
-                new Edge(n16,120),
-                new Edge(n14,120),
-                new Edge(n13,120)
-        };
-
-        n12.adjacencies = new Edge[]{
-                new Edge(n4,120),
-                new Edge(n13,146)
-        };
-
-        n13.adjacencies = new Edge[]{
-                new Edge(n12,101),
-                new Edge(n14,90)
-        };
-
-        n14.adjacencies = new Edge[]{
-                new Edge(n11,90),
-                new Edge(n15,90)
-        };
-        n15.adjacencies = new Edge[]{
-                new Edge(n14,90),
-                new Edge(n16,90)
-        };
-
-        n16.adjacencies = new Edge[]{
-                new Edge(n11,90),
-                new Edge(n15,90),
-                new Edge(n17,90),
-                new Edge(n10,90)
-        };
-
-        n17.adjacencies = new Edge[]{
-                new Edge(n10,90),
-                new Edge(n16,90)
-        };
-
-
-        Node[] nodes = {n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14};
-
-        //compute paths
-        computePaths(n1);
-
-        //print shortest paths
-
-		for(Node n: nodes){
-			System.out.println("Distance to " +
-				n + ": " + n.shortestDistance);
-    		List<Node> path = getShortestPathTo(n);
-    		System.out.println("Path: " + path);
-		}
-
-        List<Node> path = getShortestPathTo(n16);
-        System.out.println("Path: " + path);
 
     }
 }
+
+//south harrow - edgware road | Work | problem is solve
+// KENTON - ANGEL | WORK

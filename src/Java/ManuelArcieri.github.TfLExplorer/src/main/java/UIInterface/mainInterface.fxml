@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -15,16 +16,20 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="259.0" layoutY="22.0" prefHeight="43.0" prefWidth="167.0" text="London Tube" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Accordion layoutX="261.0" layoutY="86.0" prefHeight="286.0" prefWidth="313.0">
+            <Pane prefHeight="72.0" prefWidth="640.0" style="-fx-background-color: #000000;">
+               <children>
+                  <Label layoutX="237.0" layoutY="15.0" prefHeight="43.0" prefWidth="167.0" text="London Tube" textAlignment="CENTER" textFill="#fffefe" textOverrun="LEADING_ELLIPSIS">
+                     <font>
+                        <Font name="Ayuthaya" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Accordion id="listView" layoutX="259.0" layoutY="84.0" prefHeight="286.0" prefWidth="313.0" stylesheets="@bootstrap2.css">
               <panes>
-                <TitledPane id="listView" fx:id="listView" animated="false" contentDisplay="CENTER" stylesheets="@myStyle.css" text="Suggered Path">
+                <TitledPane fx:id="listView" animated="false" text="Suggered Path">
                      <content>
-                        <ListView id="stationsList" fx:id="stationsList" prefHeight="400.0" prefWidth="294.0" />
+                        <ListView id="stationsList" fx:id="stationsList" prefHeight="400.0" prefWidth="294.0" stylesheets="@myStyle.css" />
                      </content>
                 </TitledPane>
                 <TitledPane animated="false" prefHeight="195.0" prefWidth="296.0" text="Alternative Path">

@@ -1,5 +1,7 @@
 package UIInterface;
 
+import MainApp.Itinerary;
+import MainApp.Node;
 import com.jfoenix.controls.JFXListView;
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.beans.property.ListProperty;
@@ -122,26 +124,27 @@ public class Controller implements Initializable{
     public void buttonSubmitPressed() throws IOException
     {
 
-
-       // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
+        // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
         stationsList.getItems().clear();
 
+        Itinerary itinerary = new Itinerary(stationFrom.getText(), stationTo.getText());
 
+        String previousline =null;
 
-        stationsList.getItems().addAll(DijkstraAlgo.finalDirection(stationFrom.getText(), stationTo.getText()));
+        for(Node station : itinerary.path){
+            if(previousline == station.line){
+                stationsList.getItems().add("|  |     "+station.value+ " line : "+ station.line);
+            }else{
+                stationsList.getItems().add("|o|     "+station.value + " line : "+ station.line);
+            }
 
+            previousline = station.line;
+        }
+        
+        double time = itinerary.time;
 
       // listProperty.set(FXCollections.observableArrayList(stations));
 
-
-
-
-
-
-
     }
-
-
-
 
 }

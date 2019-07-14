@@ -58,7 +58,6 @@ public class DijkstraAlgo {
             path.add(node);
         }
 
-
         //reverse the order such that it will be from source to target
         Collections.reverse(path);
 
@@ -71,8 +70,9 @@ public class DijkstraAlgo {
         ServiceSqlRequest base = new ServiceSqlRequest();
         String previous_line = "";
         previous_line = base.getLinebetweenStations(path.get(0).value,path.get(1).value);
-        for(int i=1; i< path.size(); i++){
+        path.get(0).line = previous_line;
 
+        for(int i=1; i< path.size(); i++){
 
 
                 /*Add 1 min if their is line changement*/
@@ -83,10 +83,12 @@ public class DijkstraAlgo {
 
                     System.out.println(base.getLinebetweenStations(path.get(0).value,path.get(1).value )+ " [INFO] 3 min add for the line changement");
                     previous_line = base.getLinebetweenStations(path.get(i-1).value,path.get(i).value);
+                    path.get(i).line = previous_line;
 
 
                 }else{
                     System.out.println("");
+                    path.get(i).line = previous_line;
                 }
 
 

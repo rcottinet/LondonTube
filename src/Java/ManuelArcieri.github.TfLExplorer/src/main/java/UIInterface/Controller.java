@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -32,6 +33,8 @@ import static java.awt.Event.ENTER;
 
 import MainApp.DijkstraAlgo;
 
+import javax.swing.text.html.ImageView;
+
 public class Controller implements Initializable{
 
 
@@ -48,6 +51,7 @@ public class Controller implements Initializable{
 
     @FXML
     Scene scene;
+
     @FXML
     Window window;
 
@@ -64,12 +68,14 @@ public class Controller implements Initializable{
     ListView stationsList;
 
 
+
     Set<String> possibleWordSet = new HashSet<>();
     private AutoCompletionBinding<String> autoCompletionBinding;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
 
         ServiceSqlRequest base = new ServiceSqlRequest();

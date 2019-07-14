@@ -11,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -26,6 +23,7 @@ import service.ServiceSqlRequest;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.security.Key;
 import java.util.*;
 
@@ -66,6 +64,16 @@ public class Controller implements Initializable{
 
     @FXML
     ListView stationsList;
+
+    @FXML
+    Label timeStation;
+
+    @FXML
+   Accordion listViews;
+
+    @FXML
+    TitledPane suggeredPath;
+
 
 
 
@@ -130,6 +138,7 @@ public class Controller implements Initializable{
     public void buttonSubmitPressed() throws IOException
     {
 
+
         // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
         stationsList.getItems().clear();
 
@@ -138,16 +147,36 @@ public class Controller implements Initializable{
         String previousline =null;
 
         for(Node station : itinerary.path){
-            if(previousline == station.line){
-                stationsList.getItems().add("|  |     "+station.value+ " line : "+ station.line);
-            }else{
-                stationsList.getItems().add("|o|     "+station.value + " line : "+ station.line);
+            if(previousline == station.line) {
+                stationsList.getItems().add("|  |     " + station.value + " - " + station.line);
+
+            }else if(previousline == null){
+                    stationsList.getItems().add("|o|     "+station.value + " - "+ station.line);
+
+
+            }else if (previousline != station.line && previousline != null){
+                stationsList.getItems().add("      ! ----- Change at the next station ----- !");
+                stationsList.getItems().add("|o|     "+station.value + " - "+ station.line);
             }
 
             previousline = station.line;
         }
-        
-        double time = itinerary.time;
+
+        //System.out.println(listViews.getPanes().get(0).toString());
+
+        double time = (int)itinerary.time + (itinerary.time - (int) itinerary.time)*60*0.01;
+
+        listViews.getPanes().set(0, suggeredPath);
+
+
+
+
+
+        suggeredPath.setText("Suggered Path        " + (int) time + " min " + (int)((time - (int)time )*100)  + " sec ");
+
+
+
+
 
       // listProperty.set(FXCollections.observableArrayList(stations));
 

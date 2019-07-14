@@ -32,9 +32,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Accordion id="listView" layoutX="371.0" layoutY="153.0" prefHeight="371.0" prefWidth="346.0" stylesheets="@bootstrap2.css">
+            <Accordion id="listView" fx:id="listViews" layoutX="371.0" layoutY="153.0" prefHeight="371.0" prefWidth="346.0" stylesheets="@bootstrap2.css">
               <panes>
-                <TitledPane fx:id="listView" animated="false" prefHeight="330.0" prefWidth="336.0" style="-fx-background-color: #a6020d;" text="Suggered Path">
+                <TitledPane fx:id="suggeredPath" animated="false" prefHeight="330.0" prefWidth="336.0" style="-fx-background-color: #a6020d;" text="Suggered Path">
                      <content>
                         <ListView id="stationsList" fx:id="stationsList" prefHeight="235.0" prefWidth="311.0" stylesheets="@myStyle.css" />
                      </content>

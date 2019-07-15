@@ -22,7 +22,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("mainInterface.fxml"));
         primaryStage.setTitle("London Tube");
-        primaryStage.setScene(new Scene(root, 755, 600));
+        primaryStage.setScene(new Scene(root, 1275, 638));
         primaryStage.show();
 
 

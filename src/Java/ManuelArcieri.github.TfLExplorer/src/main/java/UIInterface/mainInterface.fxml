@@ -14,25 +14,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIInterface.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="1274.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIInterface.Controller">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="627.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="703.0" prefWidth="776.0" VBox.vgrow="ALWAYS">
       <children>
-            <Pane prefHeight="116.0" prefWidth="755.0" style="-fx-background-color: #38465e;">
+            <Pane prefHeight="119.0" prefWidth="1272.0" style="-fx-background-color: #38465e;">
                <children>
-                  <Label id="Title" layoutX="271.0" layoutY="35.0" prefHeight="46.0" prefWidth="260.0" style="-fx-font-family: johnston; -fx-font-weight: bold;" text="London Tube" textAlignment="CENTER" textFill="#fffefe" textOverrun="LEADING_ELLIPSIS">
+                  <Label id="Title" layoutX="520.0" layoutY="31.0" prefHeight="46.0" prefWidth="260.0" style="-fx-font-family: johnston; -fx-font-weight: bold;" text="London Tube" textAlignment="CENTER" textFill="#fffefe" textOverrun="LEADING_ELLIPSIS">
                      <font>
                         <Font name="Ayuthaya" size="32.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="80.0" fitWidth="131.0" layoutX="34.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/Users/bryan/Desktop/1200px-Underground.png" />
+                        <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/1200px-Underground.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Accordion id="listView" fx:id="listViews" layoutX="371.0" layoutY="153.0" prefHeight="371.0" prefWidth="346.0" stylesheets="@bootstrap2.css">
+            <Accordion id="listView" fx:id="listViews" layoutX="72.0" layoutY="259.0" prefHeight="371.0" prefWidth="346.0" stylesheets="@bootstrap2.css">
               <panes>
                 <TitledPane fx:id="suggeredPath" animated="false" prefHeight="330.0" prefWidth="336.0" style="-fx-background-color: #a6020d;" text="Suggered Path">
                      <content>
@@ -46,13 +46,18 @@
                 </TitledPane>
               </panes>
             </Accordion>
-            <JFXTextField id="stationFrom" fx:id="stationFrom" layoutX="87.0" layoutY="160.0" prefHeight="34.0" prefWidth="168.0" promptText="StationFrom" />
-            <JFXTextField id="stationTo" fx:id="stationTo" layoutX="87.0" layoutY="217.0" prefHeight="34.0" prefWidth="168.0" promptText="StationTo" />
-            <JFXButton id="submit" fx:id="submit" buttonType="RAISED" layoutX="129.0" layoutY="289.0" onAction="#buttonSubmitPressed" prefHeight="34.0" prefWidth="84.0" ripplerFill="BLACK" stylesheets="@myStyle.css" text="Submit" textFill="WHITE">
+            <JFXTextField id="stationFrom" fx:id="stationFrom" layoutX="87.0" layoutY="147.0" prefHeight="34.0" prefWidth="168.0" promptText="StationFrom" />
+            <JFXTextField id="stationTo" fx:id="stationTo" layoutX="87.0" layoutY="200.0" prefHeight="34.0" prefWidth="168.0" promptText="StationTo" />
+            <JFXButton id="submit" fx:id="submit" buttonType="RAISED" layoutX="312.0" layoutY="200.0" onAction="#buttonSubmitPressed" prefHeight="34.0" prefWidth="84.0" ripplerFill="BLACK" stylesheets="@myStyle.css" text="Submit" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
+            <ImageView fitHeight="612.0" fitWidth="770.0" layoutX="504.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/tube_map.gif" />
+               </image>
+            </ImageView>
       </children>
     </AnchorPane>
   </children>

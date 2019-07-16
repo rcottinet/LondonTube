@@ -74,6 +74,9 @@ public class Controller implements Initializable{
     @FXML
     TitledPane suggeredPath;
 
+    @FXML
+    Label noStation;
+
 
 
 
@@ -84,7 +87,7 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+        noStation.setVisible(false);
 
         ServiceSqlRequest base = new ServiceSqlRequest();
         ArrayList<String> listStationPossible = base.getListNameAllStation();
@@ -135,49 +138,53 @@ public class Controller implements Initializable{
 
 
     @FXML
-    public void buttonSubmitPressed() throws IOException
-    {
+    public void buttonSubmitPressed() throws IOException {
 
 
         // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
         stationsList.getItems().clear();
 
-        Itinerary itinerary = new Itinerary(stationFrom.getText(), stationTo.getText());
+        if (!stationFrom.getText().equals(stationTo.getText())){
 
-        String previousline =null;
+            noStation.setVisible(false);
 
-        for(Node station : itinerary.path){
-            if(previousline == station.line) {
-                stationsList.getItems().add("|  |     " + station.value + " - " + station.line);
+            Itinerary itinerary = new Itinerary(stationFrom.getText(), stationTo.getText());
 
-            }else if(previousline == null){
-                    stationsList.getItems().add("|o|     "+station.value + " - "+ station.line);
+            String previousline = null;
+
+            for (Node station : itinerary.path) {
+                if (previousline == station.line) {
+                    stationsList.getItems().add("|  |     " + station.value + " - " + station.line);
+
+                } else if (previousline == null) {
+                    stationsList.getItems().add("|o|     " + station.value + " - " + station.line);
 
 
-            }else if (previousline != station.line && previousline != null){
-                stationsList.getItems().add("      ! ----- Change at the next station ----- !");
-                stationsList.getItems().add("|o|     "+station.value + " - "+ station.line);
+                } else if (previousline != station.line && previousline != null) {
+                    stationsList.getItems().add("      ! ----- Change at the next station ----- !");
+                    stationsList.getItems().add("|o|     " + station.value + " - " + station.line);
+                }
+
+                previousline = station.line;
+
+
             }
 
-            previousline = station.line;
+                //System.out.println(listViews.getPanes().get(0).toString());
+
+                double time = (int) itinerary.time + (itinerary.time - (int) itinerary.time) * 60 * 0.01;
+
+                listViews.getPanes().set(0, suggeredPath);
+
+
+                suggeredPath.setText("Suggered Path        " + (int) time + " min " + (int) ((time - (int) time) * 100) + " sec ");
+
+
+        }else{
+            System.out.println("Can't write the same station");
+            noStation.setVisible(true);
+
         }
-
-        //System.out.println(listViews.getPanes().get(0).toString());
-
-        double time = (int)itinerary.time + (itinerary.time - (int) itinerary.time)*60*0.01;
-
-        listViews.getPanes().set(0, suggeredPath);
-
-
-
-
-
-        suggeredPath.setText("Suggered Path        " + (int) time + " min " + (int)((time - (int)time )*100)  + " sec ");
-
-
-
-
-
       // listProperty.set(FXCollections.observableArrayList(stations));
 
     }

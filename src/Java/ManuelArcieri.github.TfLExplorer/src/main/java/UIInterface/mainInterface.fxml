@@ -46,18 +46,19 @@
                 </TitledPane>
               </panes>
             </Accordion>
-            <JFXTextField id="stationFrom" fx:id="stationFrom" layoutX="87.0" layoutY="147.0" prefHeight="34.0" prefWidth="168.0" promptText="StationFrom" />
-            <JFXTextField id="stationTo" fx:id="stationTo" layoutX="87.0" layoutY="200.0" prefHeight="34.0" prefWidth="168.0" promptText="StationTo" />
-            <JFXButton id="submit" fx:id="submit" buttonType="RAISED" layoutX="312.0" layoutY="200.0" onAction="#buttonSubmitPressed" prefHeight="34.0" prefWidth="84.0" ripplerFill="BLACK" stylesheets="@myStyle.css" text="Submit" textFill="WHITE">
+            <JFXTextField id="stationFrom" fx:id="stationFrom" layoutX="87.0" layoutY="136.0" prefHeight="34.0" prefWidth="168.0" promptText="StationFrom" />
+            <JFXTextField id="stationTo" fx:id="stationTo" layoutX="87.0" layoutY="189.0" prefHeight="34.0" prefWidth="168.0" promptText="StationTo" />
+            <JFXButton id="submit" fx:id="submit" buttonType="RAISED" layoutX="312.0" layoutY="192.0" onAction="#buttonSubmitPressed" prefHeight="34.0" prefWidth="84.0" ripplerFill="BLACK" stylesheets="@myStyle.css" text="Submit" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <ImageView fitHeight="612.0" fitWidth="770.0" layoutX="504.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="londonTubeImage" fitHeight="612.0" fitWidth="770.0" layoutX="504.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/tube_map.gif" />
                </image>
             </ImageView>
+            <Label fx:id="noStation" layoutX="87.0" layoutY="235.0" prefHeight="17.0" prefWidth="218.0" text="Can't write the same station" textFill="#cd0404" />
       </children>
     </AnchorPane>
   </children>

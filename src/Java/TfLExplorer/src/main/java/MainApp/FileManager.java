@@ -35,7 +35,7 @@ public class FileManager {
 
         try{
 
-            InputStream input = new FileInputStream("src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/DistanceStation.xls");
+            InputStream input = new FileInputStream("src/Java/TfLExplorer/src/main/assets/DistanceStation.xls");
             POIFSFileSystem fs = new POIFSFileSystem(input);
             HSSFWorkbook wb = new HSSFWorkbook(fs);
             HSSFSheet sheet = wb.getSheetAt(0);

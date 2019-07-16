@@ -75,7 +75,7 @@ public class DijkstraAlgo {
         for(int i=1; i< path.size(); i++){
 
 
-                /*Add 1 min if their is line changement*/
+                /*Add 3 min if their is line changement*/
                 if(!previous_line.equals(base.getLinebetweenStations(path.get(i - 1).value, path.get(i).value))){
                     time +=3;
 
@@ -219,11 +219,6 @@ public class DijkstraAlgo {
         //initialize the graph base on the LondonTubeMap
 
 
-        /*Node n1 = new Node("Marylebone");
-        Node n2 = new Node("Baker Street");
-        Node n3 = new Node("Regents Park");
-        */
-
 
 
         Scanner sc = new Scanner(System.in);
@@ -241,5 +236,3 @@ public class DijkstraAlgo {
     }
 }
 
-//south harrow - edgware road | Work | problem is solve
-// KENTON - ANGEL | WORK

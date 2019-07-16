@@ -33,6 +33,8 @@ import MainApp.DijkstraAlgo;
 
 import javax.swing.text.html.ImageView;
 
+
+
 public class Controller implements Initializable{
 
 
@@ -69,7 +71,7 @@ public class Controller implements Initializable{
     Label timeStation;
 
     @FXML
-   Accordion listViews;
+    Accordion listViews;
 
     @FXML
     TitledPane suggeredPath;
@@ -83,6 +85,12 @@ public class Controller implements Initializable{
     Set<String> possibleWordSet = new HashSet<>();
     private AutoCompletionBinding<String> autoCompletionBinding;
 
+
+    /**
+     * Initialize the stage and the request for the autocomplete field
+     * @param location
+     * @param resources
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -131,17 +139,16 @@ public class Controller implements Initializable{
     }
 
 
-
-
-
-
+    /**
+     * This function control the button clicked and launch the search method for the quickest path
+     * @throws IOException
+     */
 
 
     @FXML
     public void buttonSubmitPressed() throws IOException {
 
 
-        // System.out.println("%s : %s" stationFrom.getText(), stationTo.getText());
         stationsList.getItems().clear();
 
         if (!stationFrom.getText().equals(stationTo.getText())){
@@ -151,6 +158,8 @@ public class Controller implements Initializable{
             Itinerary itinerary = new Itinerary(stationFrom.getText(), stationTo.getText());
 
             String previousline = null;
+
+
 
             for (Node station : itinerary.path) {
                 if (previousline == station.line) {
@@ -170,7 +179,6 @@ public class Controller implements Initializable{
 
             }
 
-                //System.out.println(listViews.getPanes().get(0).toString());
 
                 double time = (int) itinerary.time + (itinerary.time - (int) itinerary.time) * 60 * 0.01;
 
@@ -185,7 +193,7 @@ public class Controller implements Initializable{
             noStation.setVisible(true);
 
         }
-      // listProperty.set(FXCollections.observableArrayList(stations));
+
 
     }
 

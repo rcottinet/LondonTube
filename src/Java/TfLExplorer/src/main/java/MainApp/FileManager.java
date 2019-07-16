@@ -17,8 +17,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * File Manager : Extract the values from the excel file "DistanceStation.xls" and put those values in the database
+ */
+
 
 public class FileManager {
+
 
     public static void main(String[] args){
 
@@ -63,7 +68,7 @@ public class FileManager {
                 }
 
 
-                //Insertion en BDD
+                //Insert values in the database
                 try {
 
 

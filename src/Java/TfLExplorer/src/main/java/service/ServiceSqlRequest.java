@@ -5,11 +5,20 @@ import MainApp.Node;
 import java.sql.*;
 import java.util.ArrayList;
 
+
+/* ServiceSQLRequest class : Do the connection between the database and the application using an excel file.
+ *
+  * */
+
 public  class ServiceSqlRequest {
 
 
     public Connection connection;
     public Statement statement;
+
+    /* jdbc Connection : connection of the database
+     *
+      * */
 
     public void jdbcConnection(){
         try {
@@ -22,6 +31,7 @@ public  class ServiceSqlRequest {
         }
 
     }
+
 
     public double getTimeBetweenStations(String StationA, String StationB){
         jdbcConnection();

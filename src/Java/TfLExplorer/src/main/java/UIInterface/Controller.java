@@ -155,6 +155,14 @@ public class Controller implements Initializable{
 
             noStation.setVisible(false);
 
+
+            /**
+             * Get an Itinary Object with dijkstra algorithm from the MainApp package
+             *
+             * It contains the time, the path, the departure station and the arrival station
+             *
+             */
+
             Itinerary itinerary = new Itinerary(stationFrom.getText(), stationTo.getText());
 
             String previousline = null;
@@ -189,6 +197,9 @@ public class Controller implements Initializable{
 
 
         }else{
+
+            /** In the case when the user write the same station for departure and arrival */
+
             System.out.println("Can't write the same station");
             noStation.setVisible(true);
 

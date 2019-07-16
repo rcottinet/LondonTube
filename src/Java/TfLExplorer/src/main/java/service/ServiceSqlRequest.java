@@ -18,7 +18,7 @@ public  class ServiceSqlRequest {
 
     /* jdbc Connection : connection of the database
      *
-      * */
+     * */
 
     public void jdbcConnection(){
         try {
@@ -203,7 +203,7 @@ public  class ServiceSqlRequest {
 
 
     public static void main(String[] args) {
-
+        //Test
         System.out.println(new ServiceSqlRequest().getAdjacencies("BAKER STREET"));
     }
 }

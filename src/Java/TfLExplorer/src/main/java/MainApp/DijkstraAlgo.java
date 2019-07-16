@@ -4,8 +4,9 @@ import service.ServiceSqlRequest;
 import java.util.*;
 
 public class DijkstraAlgo {
-    /* Dijkstra Algorithm
+    /*
      *
+     * Dijkstra Algorithm
      *
      */
     public static void computePaths(Node source){
@@ -118,6 +119,20 @@ public class DijkstraAlgo {
     }
 
 
+    /*
+     * How node and edge of each node has instanced before is doing automatically
+     *
+     *
+     * - initialize the edges -
+     *
+     * n1.adjacencies = new Edge[]{
+     *                 new Edge(n2,base.getTimeBetweenStations(n1.value,n2.value))
+     *                 new Edge(n2,base.getTimeBetweenStations(n1.value,n2.value))
+     *     };
+     */
+
+    // This function do this automatically for the ~700 connections which exist between stations
+
 
     public static List<Node> finalDirection(String stationFrom, String stationTo){
 
@@ -137,10 +152,10 @@ public class DijkstraAlgo {
             String cle = entry.getKey();
             Node valeur = entry.getValue();
 
-
-            /*try {*/
             for (String edge : base.getAdjacencies(cle)) {
+
                 double time = 0;
+
                 try {
                     time = base.getTimeBetweenStations(
                             valeur.value,
@@ -148,8 +163,6 @@ public class DijkstraAlgo {
                 }catch(Exception e ){
                     System.out.println(e +" : Erreur pour le getTime dans l'affecte des arretes");
                 }
-
-
 
                 try{
                     valeur.adjacencies.add(
@@ -162,13 +175,7 @@ public class DijkstraAlgo {
                 }catch (Exception e){
                     System.out.println(e);
                 }
-
             }
-            /*}catch (Exception e) {
-                System.out.println(e);
-            }*/
-
-
 
             entry.setValue(valeur);
         }
@@ -179,11 +186,8 @@ public class DijkstraAlgo {
             nodeslist.add(entry.getValue());
         }
 
-        //initialize the edges
-        /*n1.adjacencies = new Edge[]{
-                new Edge(n2,base.getTimeBetweenStations(n1.value,n2.value))
-        };
-        */
+
+
 
         /*Node[] nodes = {n1,....,n14};*/
 
@@ -221,7 +225,7 @@ public class DijkstraAlgo {
 
 
 
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);
         System.out.println("Station from : ");
 
         String stationFrom = sc.nextLine();
@@ -230,7 +234,7 @@ public class DijkstraAlgo {
 
         String stationTo = sc.nextLine();
 
-        List<Node> path = finalDirection(stationFrom,stationTo);
+        List<Node> path = finalDirection(stationFrom,stationTo);*/
 
 
     }

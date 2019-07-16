@@ -27,7 +27,7 @@
                   </Label>
                   <ImageView fitHeight="80.0" fitWidth="131.0" layoutX="34.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/1200px-Underground.png" />
+                        <Image url="file:src/Java/TfLExplorer/src/main/assets/1200px-Underground.png" />
                      </image>
                   </ImageView>
                </children>
@@ -55,7 +55,7 @@
             </JFXButton>
             <ImageView fx:id="londonTubeImage" fitHeight="612.0" fitWidth="770.0" layoutX="504.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/tube_map.gif" />
+                  <Image url="file:src/Java/TfLExplorer/src/main/assets/tube_map.gif" />
                </image>
             </ImageView>
             <Label fx:id="noStation" layoutX="87.0" layoutY="235.0" prefHeight="17.0" prefWidth="218.0" text="Can't write the same station" textFill="#cd0404" />

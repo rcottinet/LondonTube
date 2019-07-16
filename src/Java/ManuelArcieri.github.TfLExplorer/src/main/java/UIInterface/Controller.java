@@ -161,7 +161,7 @@ public class Controller implements Initializable{
 
 
                 } else if (previousline != station.line && previousline != null) {
-                    stationsList.getItems().add("      ! ----- Change at the next station ----- !");
+                    stationsList.getItems().add("      ! ----- Change at this station ----- !");
                     stationsList.getItems().add("|o|     " + station.value + " - " + station.line);
                 }
 

@@ -58,7 +58,7 @@
                   <Image url="file:src/Java/ManuelArcieri.github.TfLExplorer/src/main/assets/tube_map.gif" />
                </image>
             </ImageView>
-            <Label fx:id="noStation" layoutX="92.0" layoutY="240.0" prefHeight="17.0" prefWidth="218.0" text="Can't write the same station" textFill="#cd0404" />
+            <Label fx:id="noStation" layoutX="87.0" layoutY="235.0" prefHeight="17.0" prefWidth="218.0" text="Can't write the same station" textFill="#cd0404" />
       </children>
     </AnchorPane>
   </children>
